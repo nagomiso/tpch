@@ -192,6 +192,7 @@ if __name__ == "__main__":
                 "polars",
                 "duckdb",
                 "pandas",
+                "fireducks",
                 "dask",
                 "spark",
                 "vaex_parquet",

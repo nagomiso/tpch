@@ -6,6 +6,11 @@ PYTHON=.venv/bin/python
 	@.venv/bin/pip install -U pip
 	@.venv/bin/pip install --no-cache-dir -r requirements.txt
 
+.fireducks:
+	@python -m venv .fireducks
+	@.venv/bin/pip install -U pip
+	@.venv/bin/pip install --no-cache-dir -r requirements-fireducks.txt
+
 clean-tpch-dbgen:
 	$(MAKE) -C tpch-dbgen clean
 
@@ -37,6 +42,9 @@ run_polars: .venv
 run_pandas: .venv
 	.venv/bin/python -m pandas_queries.executor
 
+run_fireducks: .fireducks
+	.fireducks/bin/python -m fireducks_queries.executor
+
 run_dask: .venv
 	.venv/bin/python -m dask_queries.executor
 
@@ -55,7 +63,7 @@ run_duckdb: .venv
 plot_results: .venv
 	.venv/bin/python -m scripts.plot_results
 
-run_all: run_polars run_pandas run_vaex run_dask run_modin run_spark
+run_all: run_polars run_pandas run_fireducks
 
 pre-commit:
 	.venv/bin/python -m isort .
